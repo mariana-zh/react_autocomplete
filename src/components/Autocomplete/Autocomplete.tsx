@@ -16,9 +16,13 @@ export const Autocomplete: React.FC<Props> = ({
   const [query, setQuery] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
 
-  const filteredPeople = people.filter(person => {
-    return person.name.toLowerCase().includes(appliedQuery.toLowerCase());
-  });
+  let filteredPeople = people;
+
+  if (appliedQuery.trim() !== '') {
+    filteredPeople = people.filter(person =>
+      person.name.toLowerCase().includes(appliedQuery.trim().toLowerCase()),
+    );
+  }
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
